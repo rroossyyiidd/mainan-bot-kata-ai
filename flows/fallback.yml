@@ -1,0 +1,19 @@
+active: true
+    fallback: true
+    intents:
+      fallbackIntent:
+        type: text
+        fallback: true
+    states:
+      init:
+        initial: true
+        end: true
+        action: showDontUnderstand
+        transitions:
+          init:
+            fallback: true
+    actions:
+      showDontUnderstand:
+        type: text
+        options:
+          text: "Maaf tidak tau"

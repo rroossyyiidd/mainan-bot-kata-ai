@@ -1,0 +1,8 @@
+name:  my-bot
+flows:
+  fallback: $include(./flows/fallback.yml)
+  greeting: $include(./flows/greeting.yml)
+methods: {}
+nlus: $include(./nlu.yml)
+author: rroossyyiidd
+changelog: "Init"

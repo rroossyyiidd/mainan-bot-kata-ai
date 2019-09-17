@@ -1,0 +1,14 @@
+intent:
+  type: keyword
+  options:
+    keywords:
+      greetingNLU:
+        - hi
+        - halo
+        - hai
+        - cuy
+        - hello
+      orderNLU:
+        - beli
+        - pesan
+        - order
