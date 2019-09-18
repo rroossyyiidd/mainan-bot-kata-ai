@@ -1,23 +1,23 @@
 active: true
-    intents:
-      greetingIntent:
-        initial: true
-        type: text
-        # condition: content == "halo"
-        classifier:
-          nlu: intent
-          match: greetingNLU
-    states:
-      init:
-        initial: true
-        transitions:
-          showGreeting:
-            fallback: true
+intents:
+  greetingIntent:
+    initial: true
+    type: text
+    # condition: content == "halo"
+    classifier:
+      nlu: intent
+      match: greetingNLU
+states:
+  init:
+    initial: true
+    transitions:
       showGreeting:
-        action: sayHello
-        end: true
-    actions:
-      sayHello:
-        type: text
-        options:
-          text: 'Halo, selamat datang'
+        fallback: true
+  showGreeting:
+    action: sayHello
+    end: true
+actions:
+  sayHello:
+    type: text
+    options:
+      text: 'Halo, selamat datang'

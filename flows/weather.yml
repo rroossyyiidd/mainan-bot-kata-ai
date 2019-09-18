@@ -1,0 +1,47 @@
+active: true
+intents:
+  weatherIntent:
+    type: text
+    condition: content === 'cuaca'
+    initial: true
+  areaFillIntent:
+    type: text
+    # condition: content === 'Malang' || content === 'malang'
+    classifier:
+      nlu: intent
+      match: areaNLU
+  # kalau pengen tetep di flow itu ketika tidak ada flow, ada 3 tipe, command
+  reenter: 
+    type: command
+    condition: content === 'reenter'
+states:
+  init:
+    initial: true
+    transitions:
+      inputArea:
+        condition: intent === 'weatherIntent'
+        fallback: true
+  inputArea:
+    action: askArea
+    transitions:
+      toWeatherResult:
+        condition: intent === 'areaFillIntent'
+        mapping:
+          data:
+          # context:
+            choosenArea: content
+      inputArea:
+      # fallback bila tidak terpenuhi akan dipanggil lagi
+        fallback: true
+  toWeatherResult:
+    action: toWeatherResultCommand
+    end: true
+actions:
+  askArea:
+    type: text
+    options:
+      text: 'masukkan kota bro!'
+  toWeatherResultCommand:
+    type: command
+    options:
+      command: WeatherResultCommand

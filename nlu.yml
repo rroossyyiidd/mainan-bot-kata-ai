@@ -12,3 +12,10 @@ intent:
         - beli
         - pesan
         - order
+      areaNLU:
+        - malang
+        - jombang
+        - surabaya
+        - sragen
+        - sawojajar
+        - bogor

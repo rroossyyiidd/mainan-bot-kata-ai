@@ -1,8 +1,11 @@
-name:  my-bot
+name: my-bot
 flows:
-  fallback: $include(./flows/fallback.yml)
-  greeting: $include(./flows/greeting.yml)
+    fallback: $include(./flows/fallback.yml)
+    greeting: $include(./flows/greeting.yml)
+    weather: $include(./flows/weather.yml)
+    weatherResult: $include(./flows/weatherResult.yml)
 methods: {}
 nlus: $include(./nlu.yml)
 author: rroossyyiidd
-changelog: "Init"
+changelog: Init
+tag: null

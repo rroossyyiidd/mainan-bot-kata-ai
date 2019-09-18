@@ -1,0 +1,20 @@
+active: true
+intents:
+  weatherResultIntent:
+    initial: true
+    type: command
+    condition: content === 'WeatherResultCommand'
+states:
+  init:
+    initial: true
+    transitions:
+      weatherResult:
+        fallback: true
+  weatherResult:
+    action: showWeatherInfo
+    end: true
+actions:
+  showWeatherInfo:
+    type: text
+    options:
+      text: 'cuaca di daerah $(data.choosenArea) adalah cerah'
