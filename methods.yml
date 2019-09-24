@@ -1,0 +1,29 @@
+setArea(ctx): >
+  ctx.data.choosenArea = ctx.payload.value;
+  return ctx;
+showAreaOptions(message, context, data, options): >
+  const areas = ['Malang', 'Surabaya', 'Jakarta'];
+  let buttons = [];
+  areas.forEach(function(item){
+    buttons.push({
+      type: 'postback',
+      label: item,
+      payload: {
+        type: 'area',
+        value: item
+      }
+    });
+  });
+
+  return {
+    type: "data",
+    payload: {
+      type: 'template',
+      template_type: 'button',
+      items: {
+        text: 'Kamu mau cuaca di daerah mana?',
+        title: 'askArea',
+        actions: buttons
+      }
+    }
+  }

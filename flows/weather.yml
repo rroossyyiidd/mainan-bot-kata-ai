@@ -5,11 +5,12 @@ intents:
     condition: content === 'cuaca'
     initial: true
   areaFillIntent:
-    type: text
+    type: data
+    condition: payload.type === 'area' && (payload.value === 'Malang' || payload.value === 'Bandung')
     # condition: content === 'Malang' || content === 'malang'
-    classifier:
-      nlu: intent
-      match: areaNLU
+#    classifier:
+#      nlu: intent
+#      match: areaNLU
   # kalau pengen tetep di flow itu ketika tidak ada flow, ada 3 tipe, command
   reenter: 
     type: command
@@ -26,10 +27,11 @@ states:
     transitions:
       toWeatherResult:
         condition: intent === 'areaFillIntent'
-        mapping:
-          data:
-          # context:
-            choosenArea: content
+#        mapping menggunakan method "setArea", content itu data yang diinputkan user yang terbaru
+        mapping: setArea
+#          data:
+#          # context:
+#            choosenArea: content
       inputArea:
       # fallback bila tidak terpenuhi akan dipanggil lagi
         fallback: true
@@ -38,9 +40,33 @@ states:
     end: true
 actions:
   askArea:
-    type: text
-    options:
-      text: 'masukkan kota bro!'
+    type: method
+    method: showAreaOptions
+    options: {}
+#      type: button
+#      items:
+#        text: 'Kamu mau cuaca di daerah mana?'
+#        title: 'askArea'
+#        actions:
+#          - type: 'postback'
+#            label: 'Malang'
+##            payload = data apa yang akan kita kirim kalau button ini di klik
+#            payload:
+#              type: area
+#              value: 'Malang'
+#          - type: 'postback'
+#            label: 'Jakarta'
+#            payload:
+#              type: area
+#              value: 'Jakarta'
+#          - type: 'postback'
+#            label: 'Bandung'
+#            payload:
+#              type: area
+#              value: 'Bandung'
+#    type: text
+#    options:
+#      text: 'masukkan kota bro!'
   toWeatherResultCommand:
     type: command
     options:

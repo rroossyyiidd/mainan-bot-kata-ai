@@ -4,7 +4,7 @@ flows:
     greeting: $include(./flows/greeting.yml)
     weather: $include(./flows/weather.yml)
     weatherResult: $include(./flows/weatherResult.yml)
-methods: {}
+methods: $include(./methods.yml)
 nlus: $include(./nlu.yml)
 author: rroossyyiidd
 changelog: Init
