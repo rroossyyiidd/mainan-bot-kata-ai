@@ -4,17 +4,58 @@ intents:
     initial: true
     type: command
     condition: content === 'WeatherResultCommand'
+  weatherResultAPIIntent:
+    type: command
+    condition: content === 'handleCallWeatherAPICommand'
 states:
   init:
     initial: true
     transitions:
+      fetchWeatherData:
+        fallback: true
+  fetchWeatherData:
+    action:
+      - name: callWeatherAPI
+      - name: handleWeatherAPI
+    transitions:
+    # transisi ke sini setelah fetch api weather
       weatherResult:
+      # kalau get api 200 maka payload.result true
+        condition: intent === 'weatherResultAPIIntent' && payload.result
+        # penyimpanan data
+        mapping:
+          context:
+            weatherData: payload.result
+      failedFetchWeather:
+        # conditional ini opsional
         fallback: true
   weatherResult:
     action: showWeatherInfo
+    end: true
+  failedFetchWeather:
+    action: sayErrorWeather
     end: true
 actions:
   showWeatherInfo:
     type: text
     options:
-      text: 'cuaca di daerah $(data.choosenArea) adalah cerah'
+      text: 'cuaca di daerah $(data.choosenArea) adalah $(context.weatherData.main.temp) derajat Fahrenheit'
+  callWeatherAPI:
+    type: api
+    options:
+      method: 'GET'
+      # uri: 'https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22'
+      uri: 'https://samples.openweathermap.org/data/2.5/weather'
+      query:
+        q: data.choosenArea
+        appid: 'b6907d289e10d714a6e88b30761fae22'
+  handleWeatherAPI:
+    type: command
+    options:
+      command: handleCallWeatherAPICommand
+      payload:
+        result: $(result)
+  sayErrorWeather: 
+    type: text
+    options:
+      text: "Maaf data cuaca tidak ditemukan untuk kota $(data.choosenArea)"

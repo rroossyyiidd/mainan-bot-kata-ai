@@ -6,6 +6,7 @@ flows:
     weatherResult: $include(./flows/weatherResult.yml)
 methods: $include(./methods.yml)
 nlus: $include(./nlu.yml)
+config: $include(./config.yml)
 author: rroossyyiidd
 changelog: Init
 tag: null
